@@ -1,0 +1,17 @@
+# conda env create -f environment.yml && conda activate gras-docking
+name: gras-docking
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - pandas
+  - numpy
+  - rdkit
+  - openbabel        # provides the `obabel` command used by steps 2 and 3
+  - fpocket          # pocket detection, run once per PDB before step 3
+  - smina            # docking engine used by step 3 (bioconda)
+  - pytest
+  - pip
+  - pip:
+      - pubchempy

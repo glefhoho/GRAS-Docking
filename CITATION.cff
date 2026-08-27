@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "GRAS-Docking: a specificity-aware virtual screening pipeline for food additives"
+message: "If you use this software, please cite it as below, together with smina, Open Babel, fpocket and PubChem (see README.md > Citation)."
+type: software
+authors:
+  - family-names: Li
+    given-names: Xiang
+    email: xli166@utk.edu
+    affiliation: "University of Tennessee, Knoxville"
+repository-code: "https://github.com/glefhoho/GRAS-Docking"
+license: MIT
+keywords:
+  - molecular docking
+  - virtual screening
+  - food additives
+  - GRAS
+  - smina
+  - fpocket
