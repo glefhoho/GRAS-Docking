@@ -4,7 +4,6 @@ A four-step, reproducible pipeline for screening food additives (GRAS-listed
 chemicals) against a panel of protein structures by molecular docking, and for
 ranking the results by **target specificity** rather than by raw docking score.
 
-*[中文快速上手](README.zh-CN.md)*
 
 > **Scope.** This pipeline generates ranked hypotheses. A hit is a compound worth
 > testing in an assay — not evidence that it binds. Please read
