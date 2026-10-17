@@ -1,17 +1,71 @@
-# conda env create -f environment.yml && conda activate gras-docking
-name: gras-docking
+# Step 1: scripts/step1_fetch_smiles.py
+# PubChem retrieval, desalting, RDKit validation, size limits.
+name: gras-step1
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+      - pubchempy==1.0.4
+      - rdkit==2025.9.6
+      - pandas==3.0.0
+      - numpy==2.4.1
+
+# Step 2: scripts/step2_build_ligands.py
+# 3D conformer generation and pH-based protonation with Open Babel.
+# Open Babel is pinned to the development snapshot used for the reported
+# screen (2.3.90dev, bioconda build py35_0, source commit 7d621d9).
+# This build requires Python 3.5, which fixes pandas/numpy to the versions below.
+name: gras-step2
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - python=3.5.6
+  - openbabel=2.3.90dev7d621d9=py35_0
+  - pip
+  - pip:
+      - numpy==1.18.5
+      - pandas==0.25.3
+
+
+# Step 3a: pocket detection (run once per receptor, before docking)
+#   for f in proteins/*.pdb; do fpocket -f "$f"; done
+name: gras-step3a
 channels:
   - conda-forge
   - bioconda
 dependencies:
-  - python=3.11
-  - pandas
-  - numpy
-  - rdkit
-  - openbabel        # provides the `obabel` command used by steps 2 and 3
-  - fpocket          # pocket detection, run once per PDB before step 3
-  - smina            # docking engine used by step 3 (bioconda)
-  - pytest
+  - python=3.12.7
+  - fpocket=4.2.2=h7b35b64_0
+  - openbabel=3.1.1=py312hbfe4552_9
+
+
+# Step 3b: scripts/step3_dock.py
+# Receptor preparation (Open Babel) and docking (Smina).
+name: gras-step3b
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.12.12
+  - smina=2020.12.10=hecca717_2
+  - openbabel=3.1.1=py312hbfe4552_9
+
+
+
+# Step 4: scripts/step4_analyze.py
+# Z-score standardization, ligand efficiency, filtering and reporting.
+name: gras-step4
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
   - pip
   - pip:
-      - pubchempy
+      - pandas==3.0.0
+      - numpy==2.4.1
+ 
+
+
